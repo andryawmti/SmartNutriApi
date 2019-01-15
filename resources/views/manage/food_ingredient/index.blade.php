@@ -1,7 +1,7 @@
 @extends('layouts.appv2')
 
 @section('page_title')
-    Food Ingredient Category
+    Food Ingredient
 @endsection
 
 @section('page_css')
@@ -18,11 +18,11 @@
         <div class="content-wrapper">
         <div class="content-heading">
             <div>
-                Manage Food Ingredient Category
+                Manage Food Ingredient
                 <ol class="breadcrumb breadcrumb px-0 pb-0">
                     <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a>
                     </li>
-                    <li class="breadcrumb-item active">Food Ingredient Category</li>
+                    <li class="breadcrumb-item active">Food Ingredient</li>
                 </ol>
             </div>
         </div>
@@ -31,8 +31,8 @@
             <div class="card card-default" role="tabpanel">
                 <ul class="nav nav-tabs" role="tablist">
                     <li class="nav-item" role="presentation">
-                        <a class="nav-link active show" href="#category" aria-controls="home" role="tab" data-toggle="tab" aria-selected="true">
-                            <em class="fa fa-user fa-fw"></em>Category</a>
+                        <a class="nav-link active show" href="#food-ingredient" aria-controls="home" role="tab" data-toggle="tab" aria-selected="true">
+                            <em class="fa fa-user fa-fw"></em>Food Ingredient</a>
                     </li>
                     <li class="nav-item" role="presentation">
                         <a class="nav-link" href="#add-new" aria-controls="profile" role="tab" data-toggle="tab" aria-selected="false">
@@ -40,7 +40,7 @@
                     </li>
                 </ul>
                 <div class="tab-content">
-                    <div class="tab-pane active" id="category" role="tabpanel">
+                    <div class="tab-pane active" id="food-ingredient" role="tabpanel">
                         <table class="table table-striped my-4 w-100 data-table">
                             <thead>
                             <tr>
@@ -122,7 +122,7 @@
                                         </div>
                                     </div>
                                 </fieldset>
-                                {{--<fieldset>
+                                <fieldset>
                                     <div class="form-group row">
                                         <label class="col-md-2 col-form-label">Ukuran Rumah Tangga (URT)</label>
                                         <div class="col-md-10">
@@ -158,7 +158,7 @@
                                             </table>
                                         </div>
                                     </div>
-                                </fieldset>--}}
+                                </fieldset>
                                 <input type="hidden" name="food_ingredient_urts" v-model="JSON.stringify(food_ingredient_urts)">
                                 <fieldset>
                                     <div class="form-group">
@@ -175,7 +175,7 @@
     </div>
         <div id="pick-urt" class="my-popup" v-bind:class="{'my-popup-hide':!show_urt_popup, 'my-popup-show':show_urt_popup}">
             <div class="col-md-12">
-                <h4>Choose Product <a class="btn btn-xs pull-right" @click="showHidePickUrt()"><em class="fa fa-remove"></em></a></h4>
+                <h4>Choose URT <a class="btn btn-xs pull-right" @click="showHidePickUrt()"><em class="fa fa-remove"></em></a></h4>
             </div>
             <table class="table table-bordered table-striped data-table-popup">
                 <thead>

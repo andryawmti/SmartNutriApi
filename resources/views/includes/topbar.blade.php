@@ -4,7 +4,7 @@
     <nav class="navbar topnavbar" role="navigation">
         <!-- START navbar header-->
         <div class="navbar-header">
-            <a class="navbar-brand" href="#/">
+            <a class="navbar-brand" href="#">
                 <div class="brand-logo">
                     {{--<img class="img-fluid" src="{{asset('angleadmin/img/logo.html')}}" alt="App Logo">--}}
                     <b class="text-white">SmartNutri</b>
@@ -37,7 +37,7 @@
                     <em class="icon-user"></em>
                 </a>
                 <!-- START Dropdown menu-->
-                <div class="dropdown-menu dropdown-menu-right animated flipInX">
+                <div class="dropdown-menu dropdown-menu-right">
                     <div class="dropdown-item">
                         <!-- START list group-->
                         <div class="list-group">

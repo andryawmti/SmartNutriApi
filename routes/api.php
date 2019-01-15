@@ -1,18 +1,12 @@
 <?php
 
-use Illuminate\Http\Request;
+/** MenuController */
+Route::prefix('menu')->group(function () {
+    Route::get('/', 'Api\MenuController@getAll');
+    Route::get('/{menu}', 'Api\MenuController@get');
+});
 
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
-*/
-
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::prefix('consultation')->group(function () {
+    Route::post('/calculate', 'Api\ConsultationController@calculateWithCooper');
+    Route::get('/user/{user}', 'Api\ConsultationController@findAllByUserId');
 });

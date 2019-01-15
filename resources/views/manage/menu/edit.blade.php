@@ -87,6 +87,43 @@
                             </fieldset>
                             <input type="hidden" name="menu_items" v-model="JSON.stringify(menu_items)" required>
                             <fieldset>
+                                <div class="form-group row">
+                                    <label class="col-md-2 col-form-label">Nutrition</label>
+                                    <div class="col-md-10">
+                                        <table class="table table-striped table-bordered">
+                                            <thead>
+                                            <tr>
+                                                <th>Calorie</th>
+                                                <th>Carbohydrate</th>
+                                                <th>Protein</th>
+                                                <th>Fat</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            {% $menuItems = $menu->menuItems %}
+                                            {% $calorie = 0 %}
+                                            {% $carbohydrate = 0 %}
+                                            {% $protein = 0 %}
+                                            {% $fat = 0 %}
+                                            @foreach($menuItems as $item)
+                                                {% $category = $item->foodIngredient->foodIngredientCategory %}
+                                                {% $calorie += $category->calorie %}
+                                                {% $carbohydrate += $category->carbohydrate %}
+                                                {% $protein += $category->protein %}
+                                                {% $fat += $category->fat %}
+                                            @endforeach
+                                            <tr class="gradeX">
+                                                <td>{{ $calorie }} gr</td>
+                                                <td>{{ $carbohydrate }} gr</td>
+                                                <td>{{ $protein }} gr</td>
+                                                <td>{{ $fat }} gr</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <fieldset>
                                 <div class="form-group">
                                     <button type="submit" class="btn btn-primary">Save</button>
                                 </div>
@@ -99,7 +136,7 @@
         </div>
         <div class="my-popup" v-bind:class="{'my-popup-hide':!show_food_ingredient_popup, 'my-popup-show':show_food_ingredient_popup}">
             <div class="col-md-12">
-                <h4>Choose Product <a class="btn btn-xs pull-right" @click="showHidePickFoodIngredient()"><em class="fa fa-remove"></em></a></h4>
+                <h4>Choose Food Ingredient <a class="btn btn-xs pull-right" @click="showHidePickFoodIngredient()"><em class="fa fa-remove"></em></a></h4>
             </div>
             <table class="table table-bordered table-striped data-table-popup">
                 <thead>
@@ -108,6 +145,10 @@
                     <th>Category</th>
                     <th>Name</th>
                     <th>Weight</th>
+                    <th>Calorie</th>
+                    <th>Carbohydrate</th>
+                    <th>Protein</th>
+                    <th>Fat</th>
                     <th>URT</th>
                 </tr>
                 </thead>
@@ -122,6 +163,11 @@
                         </td>
                         <td>{{ $ingredient->name }}</td>
                         <td>{{ $ingredient->weight }}</td>
+                        {% $cat = $ingredient->foodIngredientCategory %}
+                        <td>@if($cat->calorie) {{ $cat->calorie }} @else - @endif</td>
+                        <td>@if($cat->carbohydrate) {{ $cat->carbohydrate }} @else - @endif</td>
+                        <td>@if($cat->protein) {{ $cat->protein }} @else - @endif</td>
+                        <td>@if($cat->fat) {{ $cat->fat }} @else - @endif</td>
                         <td>
                             @foreach($ingredient->foodIngredientUrt as $x => $urt)
                                 @if($x == 0)

@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Admin;
+use App\Consultation;
+use App\Menu;
+use App\User;
 
 class HomeController extends Controller
 {
@@ -23,6 +26,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('partials.home');
+        $count = [
+            'user' => User::count(),
+            'admin' => Admin::count(),
+            'consultation' => Consultation::count(),
+            'menu' => Menu::count()
+        ];
+        return view('partials.home', ['count' => $count]);
     }
 }

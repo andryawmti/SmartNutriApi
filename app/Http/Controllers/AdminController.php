@@ -37,12 +37,7 @@ class AdminController extends Controller
             $admin->password = Hash::make(request('password'));
             $admin->address = request('address');
             $admin->api_token = str_random(60);
-
-            if (request()->hasFile('photo')) {
-                $path = Storage::putFile('public/admin_photo', request()->file('photo'));
-                $url = Storage::url($path);
-                $admin->photo = $url;
-            }
+            $admin->photo = request('photo_url');
 
             $admin->save();
 
@@ -68,18 +63,12 @@ class AdminController extends Controller
         ]);
 
         try {
-            $admin = new Admin();
             $admin->first_name = request('first_name');
             $admin->last_name = request('last_name');
             $admin->email = request('email');
             $admin->password = Hash::make(request('password'));
             $admin->address = request('address');
-
-            if (request()->hasFile('photo')) {
-                $path = Storage::putFile('public/admin_photo', request()->file('photo'));
-                $url = Storage::url($path);
-                $admin->photo = $url;
-            }
+            $admin->photo = request('photo_url');
 
             $admin->save();
 
@@ -102,5 +91,21 @@ class AdminController extends Controller
     public function generateToken(Admin $admin)
     {
         return $admin->generateApiToken();
+    }
+
+    public function uploadPhoto()
+    {
+        $success = false;
+        $url = '';
+        if (request()->hasFile('file')) {
+            $path = Storage::putFile('public/admin_photo', request()->file('file'));
+            $url =  Storage::url($path);
+            $success = true;
+        }
+
+        return json_encode([
+            'success' => $success,
+            'url' => $url,
+        ]);
     }
 }

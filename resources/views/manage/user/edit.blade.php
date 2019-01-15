@@ -107,37 +107,37 @@
                                 </div>
                             </div>
                         </fieldset>
+                        <input type="hidden" id="photo-url" name="photo_url">
                         <fieldset>
                             <div class="form-group row">
                                 <label class="col-md-2 col-form-label">Photo</label>
                                 <div class="col-md-10">
-                                    <img src="#" alt="Photo">
-                                    <input type="file" name="photo">
+                                    <div id="photo-wrapper">
+                                        <img style="width: 200px; height: auto;" src="@if($user->photo) {{ url($user->photo) }} @else {{ url('angleadmin/img/user/08.jpg') }} @endif" alt="Photo">
+                                    </div>
+                                    <div id="previews">
+                                        <div id="template">
+                                            <div style="display: none;">
+                                                <img id="image-preview" data-dz-thumbnail  src=""/>
+                                            </div>
+                                            <div>
+                                                <span class="label label-danger" data-dz-errormessage></span>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <button style="margin-top: 10px;" onclick="pickPhoto()" type="button" class="btn btn-xs btn-info">Choose <span class="fa fa-upload"></span></button>
                                 </div>
                             </div>
                         </fieldset>
-                        {{--<fieldset>
-                            <div class="form-group row">
-                                <label class="col-md-2 col-form-label">Api Token</label>
-                                <div class="col-md-10">
-                                    <div class="input-group date">
-                                        <input class="form-control" name="api_token" type="text" value="{{ auth::user()->api_token }}" readonly>
-                                        <span class="input-group-append input-group-addon">
-                                            <button id="copy-token" type="button" class="btn btn-info btn-xs pull-right">
-                                                <span class="fa fa-copy"></span> <b id="btn-title">Copy</b>
-                                            </button>
-                                        </span>
-                                    </div>
-                                    <div class="mar_top1"></div>
-                                    <button type="button" id="regenerate-token" class="btn btn-xs btn-warning">Regenerate</button>
-                                </div>
-                            </div>
-                        </fieldset>--}}
                         <fieldset>
                             <div class="form-group">
                                 <button type="submit" class="btn btn-primary">Save</button>
                             </div>
                         </fieldset>
+                    </form>
+                    <form id="profile-image" action="{{ route('user.upload-photo') }}" method="post" enctype="multipart/form-data">
+                        {{ csrf_field() }}
                     </form>
                 </div>
             </div>
@@ -161,22 +161,52 @@
     <script src="{{asset('angleadmin/vendor/datatables.net-responsive/js/dataTables.responsive.js')}}"></script>
     <script src="{{asset('angleadmin/vendor/datatables.net-responsive-bs/js/responsive.bootstrap.js')}}"></script>
 
-    {{--<script>
-        $('#regenerate-token').click(e => {
-            if (confirm('Are you sure?')) {
-                axios.get("{{route('user.generate-token', ['user' => $user->id])}}")
-                    .then(res => {
-                        $("input[name=api_token]").val(res.data);
-                    })
-                    .catch(err => {
-                        console.log(err)
-                    });
-            }
+    <script>
+        function pickPhoto() {
+            $('#previews').html('');
+            $('#profile-image').trigger('click');
+        }
+
+        $(document).ready(function () {
+            let previewNode = document.querySelector("#template");
+            previewNode.id = "";
+            let previewTemplates = previewNode.parentNode.innerHTML;
+            previewNode.parentNode.removeChild(previewNode);
+
+            let myDropzone = new Dropzone('#profile-image', {
+                previewTemplate : previewTemplates,
+                previewsContainer : "#previews",
+                thumbnailWidth: 255,
+                thumbnailHeight: 255,
+                maxFilesize: 3
+            });
+
+            myDropzone.on("uploadprogress", function(data, progress, bytes) {
+                $('#upload-progress .progress .progress-bar').css('width', progress + '%');
+            });
+
+            myDropzone.on("sending", function(data, xhr, formData) {
+                $('#upload-progress .progress .progress-bar').css('width', '1%');
+                $('#upload-progress').css('display', 'block');
+            });
+
+            myDropzone.on("queuecomplete", function() {
+                $('#upload-progress').css('display', 'none');
+            });
+
+            myDropzone.on('complete', function(response){
+                $('#upload-progress').css('display', 'none');
+                let xhrResponse = response.xhr.response;
+                xhrResponse = JSON.parse(xhrResponse);
+                $('#photo-url').val(xhrResponse.url);
+            });
+
+            myDropzone.on('success', function(response){
+                $('#upload-progress').css('display', 'none');
+                let src = $('#image-preview').attr('src');
+                $('#photo-wrapper img').attr('src', src);
+                $('#previews').html('');
+            });
         });
-        $('#copy-token').click(()=>{
-            $("input[name=api_token]").select();
-            document.execCommand('copy');
-            $('#copy-token #btn-title').html('Copied');
-        });
-    </script>--}}
+    </script>
 @endsection
