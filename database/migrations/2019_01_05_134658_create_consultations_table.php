@@ -15,7 +15,18 @@ class CreateConsultationsTable extends Migration
     {
         Schema::create('consultations', function (Blueprint $table) {
             $table->increments('id');
-            $table->timestamps();
+            $table->unsignedInteger('user_id');
+            $table->string('weight', 10);
+            $table->string('bed_time', 10)->comment('in hour');
+            $table->string('activity', 10)->comment('in percentage');
+            $table->string('pregnancy_age', 10)->comment('in week');
+            $table->string('calorie_need', 10)->comment('calorie in KKal');
+            $table->dateTime('created_at');
+            $table->dateTime('updated_at')->nullable();
+
+            $table->foreign('user_id')
+                ->references('id')
+                ->on('users');
         });
     }
 

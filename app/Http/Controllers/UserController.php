@@ -65,12 +65,7 @@ class UserController extends Controller
             $user->pregnancy_start_at = request('pregnancy_start_at');
             $user->height = request('height');
             $user->weight = request('weight');
-
-            if (request()->hasFile('photo')) {
-                $path = Storage::putFile('public/user_photo', request()->file('photo'));
-                $url = Storage::url($path);
-                $user->photo = $url;
-            }
+            $user->photo = request('photo_url');
 
             $user->save();
 
@@ -137,12 +132,7 @@ class UserController extends Controller
             $user->pregnancy_start_at = request('pregnancy_start_at');
             $user->height = request('height');
             $user->weight = request('weight');
-
-            if (request()->hasFile('photo')) {
-                $path = Storage::putFile('public/user_photo', request()->file('photo'));
-                $url = Storage::url($path);
-                $user->photo = $url;
-            }
+            $user->photo = request('photo_url');
 
             $user->save();
 
@@ -166,5 +156,21 @@ class UserController extends Controller
         } catch (\Exception $e) {
             return MyHttpResponse::deleteResponse(false, $e->getMessage(), 'user.index');
         }
+    }
+
+    public function uploadPhoto()
+    {
+        $success = false;
+        $url = '';
+        if (request()->hasFile('file')) {
+            $path = Storage::putFile('public/user_photo', request()->file('file'));
+            $url =  Storage::url($path);
+            $success = true;
+        }
+
+        return json_encode([
+            'success' => $success,
+            'url' => $url,
+        ]);
     }
 }

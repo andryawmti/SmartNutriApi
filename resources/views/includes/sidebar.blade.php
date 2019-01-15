@@ -36,6 +36,12 @@
                     </a>
                 </li>
                 <li class=" ">
+                    <a href="{{route('consultation.index')}}" title="Consultation">
+                        <em class="icon-graph"></em>
+                        <span data-localize="sidebar.nav.CONSULTATION">Consultation</span>
+                    </a>
+                </li>
+                <li class=" ">
                     <a href="#manage" title="Manage" data-toggle="collapse">
                         <em class="icon-grid"></em>
                         <span data-localize="sidebar.nav.MANAGE">Manage</span>
@@ -70,6 +76,11 @@
                         <li class=" ">
                             <a href="{{ route('admin.index') }}" title="Admin">
                                 <span>Admin</span>
+                            </a>
+                        </li>
+                        <li class=" ">
+                            <a href="{{ route('article.index') }}" title="Article">
+                                <span>Article</span>
                             </a>
                         </li>
                     </ul>

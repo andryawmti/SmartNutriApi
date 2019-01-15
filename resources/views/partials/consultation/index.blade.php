@@ -1,7 +1,7 @@
 @extends('layouts.appv2')
 
 @section('page_title')
-    User
+    Consultation
 @endsection
 
 @section('page_css')
@@ -17,11 +17,11 @@
     <div class="content-wrapper">
         <div class="content-heading">
             <div>
-                Manage User
+                Manage Consultation
                 <ol class="breadcrumb breadcrumb px-0 pb-0">
                     <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a>
                     </li>
-                    <li class="breadcrumb-item active">User</li>
+                    <li class="breadcrumb-item active">Consultation</li>
                 </ol>
             </div>
         </div>
@@ -30,43 +30,45 @@
             <div class="card card-default" role="tabpanel">
                 <ul class="nav nav-tabs" role="tablist">
                     <li class="nav-item" role="presentation">
-                        <a class="nav-link active show" href="#user" aria-controls="home" role="tab" data-toggle="tab" aria-selected="true">
-                            <em class="fa fa-user fa-fw"></em>Users</a>
+                        <a class="nav-link active show" href="#consultation" aria-controls="home" role="tab" data-toggle="tab" aria-selected="true">
+                            <em class="fa fa-user fa-fw"></em>Consultation</a>
                     </li>
-                    <li class="nav-item" role="presentation">
+                    {{--<li class="nav-item" role="presentation">
                         <a class="nav-link" href="#add-new" aria-controls="profile" role="tab" data-toggle="tab" aria-selected="false">
                             <em class="fa fa-plus-circle fa-fw"></em>Add New</a>
-                    </li>
+                    </li>--}}
                 </ul>
                 <div class="tab-content">
-                    <div class="tab-pane active" id="user" role="tabpanel">
+                    <div class="tab-pane active" id="consultation" role="tabpanel">
                         <table class="table table-striped my-4 w-100 data-table">
                             <thead>
                             <tr>
                                 <th>Id</th>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Regisered At</th>
+                                <th>User</th>
+                                <th>Activity</th>
+                                <th>Pregnancy Age</th>
+                                <th>Consultation At</th>
                                 <th>Action</th>
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($users as $u)
+                            @foreach($consultations as $c)
                                 <tr class="gradeX">
-                                    <td>{{ $u->id }}</td>
-                                    <td>{{ $u->first_name }} {{ $u->last_name }}</td>
-                                    <td>{{ $u->email }}</td>
-                                    <td>{{ date('d-M-Y', strtotime($u->created_at)) }}</td>
+                                    <td>{{ $c->id }}</td>
+                                    <td>{{ $c->user->first_name }} {{ $c->user->last_name }}</td>
+                                    <td>{{ $c->activity }}%</td>
+                                    <td>{{ $c->pregnancy_age }} Week</td>
+                                    <td>{{ date('d-M-Y H:i:s', strtotime($c->created_at)) }}</td>
                                     <td>
                                         <div class="row">
                                             <div class="col-md-1">
-                                                <a class="btn btn-xs btn-info" href="{{route('user.show', ['id' => $u->id])}}"><em class="fa fa-edit"></em></a>
+                                                <a class="btn btn-xs btn-info" href="{{route('consultation.show', ['id' => $c->id])}}"><em class="fa fa-edit"></em></a>
                                             </div>
                                             <div class="col-md-1">
-                                                <form id="delete_{{$u->id}}" method="post" action="{{route('user.destroy',['id' => $u->id])}}">
+                                                <form id="delete_{{$c->id}}" method="post" action="{{route('consultation.destroy',['id' => $c->id])}}">
                                                     @csrf
                                                     <input type="hidden" name="_method" value="DELETE">
-                                                    <button type="button" onclick="deleteItem(this.id)" class="btn btn-xs btn-info" id="{{$u->id}}"><em class="fa fa-trash"></em></button>
+                                                    <button type="button" onclick="deleteItem(this.id)" class="btn btn-xs btn-info" id="{{$c->id}}"><em class="fa fa-trash"></em></button>
                                                 </form>
                                             </div>
                                         </div>
@@ -76,80 +78,24 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class="tab-pane" id="add-new" role="tabpanel">
-                        <div class="card-header">Add New User</div>
+                    {{--<div class="tab-pane" id="add-new" role="tabpanel">
+                        <div class="card-header">Add New Article</div>
                         <div class="card-body">
-                            <form class="form-horizontal" method="post" action="{{route('user.store')}}">
+                            <form class="form-horizontal" method="post" action="{{route('article.store')}}">
                                 @csrf
                                 <fieldset>
                                     <div class="form-group row">
-                                        <label class="col-md-2 col-form-label">First Name</label>
+                                        <label class="col-md-2 col-form-label">Title</label>
                                         <div class="col-md-10">
-                                            <input class="form-control" value="{{ old('first_name') }}" name="first_name" type="text" required>
+                                            <input class="form-control" value="{{ old('title') }}" name="title" type="text" required>
                                         </div>
                                     </div>
                                 </fieldset>
                                 <fieldset>
                                     <div class="form-group row">
-                                        <label class="col-md-2 col-form-label">Last Name</label>
+                                        <label class="col-md-2 col-form-label">Content</label>
                                         <div class="col-md-10">
-                                            <input class="form-control" value="{{ old('last_name') }}" name="last_name" type="text" required>
-                                        </div>
-                                    </div>
-                                </fieldset>
-                                <fieldset>
-                                    <div class="form-group row">
-                                        <label class="col-md-2 col-form-label">Email</label>
-                                        <div class="col-md-10">
-                                            <input class="form-control" value="{{ old('email') }}" name="email" type="email" required>
-                                        </div>
-                                    </div>
-                                </fieldset>
-                                <fieldset>
-                                    <div class="form-group row">
-                                        <label class="col-md-2 col-form-label">Password</label>
-                                        <div class="col-md-10">
-                                            <input class="form-control" value="{{ old('password') }}" name="password" type="text" required>
-                                        </div>
-                                    </div>
-                                </fieldset>
-                                <fieldset>
-                                    <div class="form-group row">
-                                        <label class="col-md-2 col-form-label">Birth Date</label>
-                                        <div class="col-md-10">
-                                            <input class="form-control" value="{{ old('birth_date') }}" name="birth_date" type="date" required>
-                                        </div>
-                                    </div>
-                                </fieldset>
-                                <fieldset>
-                                    <div class="form-group row">
-                                        <label class="col-md-2 col-form-label">Address</label>
-                                        <div class="col-md-10">
-                                            <textarea class="form-control" name="address">{{ old('address') }}</textarea>
-                                        </div>
-                                    </div>
-                                </fieldset>
-                                <fieldset>
-                                    <div class="form-group row">
-                                        <label class="col-md-2 col-form-label">Pregnancy Start At</label>
-                                        <div class="col-md-10">
-                                            <input class="form-control" value="{{ old('pregnancy_start_at') }}" name="pregnancy_start_at" type="date" required>
-                                        </div>
-                                    </div>
-                                </fieldset>
-                                <fieldset>
-                                    <div class="form-group row">
-                                        <label class="col-md-2 col-form-label">Height</label>
-                                        <div class="col-md-10">
-                                            <input class="form-control" value="{{ old('height') }}" name="height" type="text" required>
-                                        </div>
-                                    </div>
-                                </fieldset>
-                                <fieldset>
-                                    <div class="form-group row">
-                                        <label class="col-md-2 col-form-label">Weight</label>
-                                        <div class="col-md-10">
-                                            <input class="form-control" value="{{ old('weight') }}" name="weight" type="text" required>
+                                            <textarea class="form-control" name="content">{{ old('content') }}</textarea>
                                         </div>
                                     </div>
                                 </fieldset>
@@ -182,11 +128,11 @@
                                     </div>
                                 </fieldset>
                             </form>
-                            <form id="profile-image" action="{{ route('user.upload-photo') }}" method="post" enctype="multipart/form-data">
+                            <form id="article-image" action="{{ route('article.upload-photo') }}" method="post" enctype="multipart/form-data">
                                 {{ csrf_field() }}
                             </form>
                         </div>
-                    </div>
+                    </div>--}}
                 </div>
             </div>
         </div>
@@ -212,7 +158,7 @@
     <script>
         function pickPhoto() {
             $('#previews').html('');
-            $('#profile-image').trigger('click');
+            $('#article-image').trigger('click');
         }
 
         $(document).ready(function () {
@@ -221,7 +167,7 @@
             let previewTemplates = previewNode.parentNode.innerHTML;
             previewNode.parentNode.removeChild(previewNode);
 
-            let myDropzone = new Dropzone('#profile-image', {
+            let myDropzone = new Dropzone('#article-image', {
                 previewTemplate : previewTemplates,
                 previewsContainer : "#previews",
                 thumbnailWidth: 255,

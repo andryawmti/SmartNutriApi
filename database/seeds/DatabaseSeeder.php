@@ -16,5 +16,9 @@ class DatabaseSeeder extends Seeder
         $this->call(FoodIngredientCategorySeeder::class);
         $this->call(FoodIngredientSeeder::class);
         $this->call(FoodIngredientUrtSeeder::class);
+        $this->call(MenuSeeder::class);
+        $this->call(ConsultationSeeder::class);
+        $this->call(ArticleSeeder::class);
+        $this->call(MenuSuggestionSeeder::class);
     }
 }

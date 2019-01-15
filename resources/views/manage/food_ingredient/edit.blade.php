@@ -117,7 +117,7 @@
         </div>
         <div id="pick-urt" class="my-popup" v-bind:class="{'my-popup-hide':!show_urt_popup, 'my-popup-show':show_urt_popup}">
             <div class="col-md-12">
-                <h4>Choose Product <a class="btn btn-xs pull-right" @click="showHidePickUrt()"><em class="fa fa-remove"></em></a></h4>
+                <h4>Choose URT <a class="btn btn-xs pull-right" @click="showHidePickUrt()"><em class="fa fa-remove"></em></a></h4>
             </div>
             <table class="table table-bordered table-striped data-table-popup">
                 <thead>

@@ -27,7 +27,7 @@
                             <em class="icon-people fa-3x"></em>
                         </div>
                         <div class="col-8 py-3 bg-primary rounded-right">
-                            <div class="h2 mt-0"></div>
+                            <div class="h2 mt-0">{{ $count['user'] }}</div>
                             <div class="text-uppercase">Users</div>
                         </div>
                     </div>
@@ -39,7 +39,7 @@
                             <em class="icon-people fa-3x"></em>
                         </div>
                         <div class="col-8 py-3 bg-purple rounded-right">
-                            <div class="h2 mt-0"></div>
+                            <div class="h2 mt-0">{{ $count['admin'] }}</div>
                             <div class="text-uppercase">Administrator</div>
                         </div>
                     </div>
@@ -51,8 +51,8 @@
                         <em class="icon-graph fa-3x"></em>
                     </div>
                     <div class="col-8 py-3 bg-green rounded-right">
-                        <div class="h2 mt-0"></div>
-                        <div class="text-uppercase">Api Call Today</div>
+                        <div class="h2 mt-0">{{ $count['consultation'] }}</div>
+                        <div class="text-uppercase">Consultation</div>
                     </div>
                 </div>
             </div>
@@ -60,16 +60,16 @@
                 <!-- START card-->
                 <div class="card flex-row align-items-center align-items-stretch border-0">
                     <div class="col-4 d-flex align-items-center bg-green-dark justify-content-center rounded-left">
-                        <em class="icon-graph fa-3x"></em>
+                        <em class="icon-menu fa-3x"></em>
                     </div>
                     <div class="col-8 py-3 bg-green rounded-right">
-                        <div class="h2 mt-0"></div>
-                        <div class="text-uppercase">Api Call Of All Time</div>
+                        <div class="h2 mt-0">{{ $count['menu'] }}</div>
+                        <div class="text-uppercase">Menu</div>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- END cards box-->
+        {{--<!-- END cards box-->
         <div class="row">
             <!-- START dashboard main content-->
             <div class="col-xl-12">
@@ -98,7 +98,7 @@
                 </div>
             </div>
             <!-- END dashboard main content-->
-        </div>
+        </div>--}}
     </div>
 @endsection
 

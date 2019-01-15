@@ -21,7 +21,7 @@
     <link rel="stylesheet" href="{{asset('angleadmin/css/bootstrap.css')}}" id="bscss">
     <!-- =============== APP STYLES ===============-->
     <link rel="stylesheet" href="{{asset('angleadmin/css/app.css')}}" id="maincss">
-{{--<script src="{{asset('angleadmin/ga.js')}}"></script></head>--}}
+    {{--<script src="{{asset('angleadmin/ga.js')}}"></script></head>--}}
 @yield('page_css')
 <body>
 <div class="wrapper">
@@ -122,5 +122,6 @@
 
 <!-- =============== APP SCRIPTS ===============-->
 <script src="{{asset('angleadmin/js/app.js')}}"></script>
+<script src="{{asset('angleadmin/js/dropzone.min.js')}}"></script>
 </body>
 </html>
