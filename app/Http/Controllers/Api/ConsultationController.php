@@ -32,11 +32,11 @@ class ConsultationController extends Controller
             $consultation->calorie_need = request('calorie_need');
             $consultation->save();
 
-            $menuSuggestion = Menu::getMenuSuggestionByCalorieNeed(request(['calorie_need']));
+            $menuSuggestion = Menu::getMenuSuggestionByCalorieNeed(request('calorie_need'));
 
             foreach ($menuSuggestion as $m) {
                 MenuSuggestion::create([
-                    'consultation_id' => $consultation->id,
+                    'consultation_id' => 3,
                     'menu_id' => $m['id'],
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s'),
@@ -45,7 +45,7 @@ class ConsultationController extends Controller
 
             return ApiResponse::success('Consultation Saved', ['menu_suggestion' => $menuSuggestion]);
         } catch (\Exception $e) {
-            return ApiResponse::error('User Update Failed');
+            return ApiResponse::error('User Update Failed, caused by: ' . $e->getMessage());
         }
     }
 }
