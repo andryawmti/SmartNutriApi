@@ -17,8 +17,6 @@ class CreateMenusTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('admin_id');
             $table->string('name', 50);
-            $table->string('description');
-            $table->string('photo')->nullable();
             $table->dateTime('created_at');
             $table->dateTime('updated_at')->nullable();
             $table->foreign('admin_id')
