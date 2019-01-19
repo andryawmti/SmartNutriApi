@@ -107,10 +107,10 @@
                                             {% $fat = 0 %}
                                             @foreach($menuItems as $item)
                                                 {% $category = $item->foodIngredient->foodIngredientCategory %}
-                                                {% $calorie += $category->calorie * $item->quantity %}
-                                                {% $carbohydrate += $category->carbohydrate * $item->quantity %}
-                                                {% $protein += $category->protein * $item->quantity %}
-                                                {% $fat += $category->fat * $item->quantity %}
+                                                {% $calorie += $category->calorie %}
+                                                {% $carbohydrate += $category->carbohydrate %}
+                                                {% $protein += $category->protein %}
+                                                {% $fat += $category->fat %}
                                             @endforeach
                                             <tr class="gradeX">
                                                 <td>{{ $calorie }} gr</td>
