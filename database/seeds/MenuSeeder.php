@@ -38,7 +38,6 @@ class MenuSeeder extends Seeder
             $menu = Menu::create([
                 'name' => $m['name'],
                 'admin_id' => $m['admin_id'],
-                'description' => 'This is a description',
             ]);
 
             foreach ($m['menu_items'] as $item) {
