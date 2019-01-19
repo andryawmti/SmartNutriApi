@@ -20,7 +20,6 @@ class MenuController extends Controller
 
         foreach ($menus as $menu) {
             $rawMenuItems = $menu->menuItems;
-            $menuItems = [];
             $total_calorie = 0;
             $total_carbohydrate = 0;
             $total_protein = 0;
@@ -68,13 +67,13 @@ class MenuController extends Controller
             $menuItems[] = [
                 'food_ingredient_id' => $item->food_ingredient_id,
                 'food_ingredient_name' => $item->foodIngredient->name,
-                'food_ingredient_weight' => $item->foodIngredient->weight,
+                'food_ingredient_weight' => $item->foodIngredient->weight * $item->quantity,
                 'food_ingredient_category_name' => $category->name,
                 'nutrition' => [
-                    'calorie' => $category->calorie,
-                    'carbohydrate' => $category->carbohydrate,
-                    'protein' => $category->protein,
-                    'fat' => $category->fat,
+                    'calorie' => $category->calorie * $item->quantity,
+                    'carbohydrate' => $category->carbohydrate * $item->quantity,
+                    'protein' => $category->protein * $item->quantity,
+                    'fat' => $category->fat * $item->quantity,
                 ]
             ];
 
