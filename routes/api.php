@@ -7,6 +7,7 @@ Route::prefix('menu')->group(function () {
 });
 
 Route::prefix('consultation')->group(function () {
+    Route::post('/', 'Api\ConsultationController@store');
     Route::post('/calculate', 'Api\ConsultationController@calculateWithCooper');
     Route::get('/user/{user}', 'Api\ConsultationController@findAllByUserId');
 });
