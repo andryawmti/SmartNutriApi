@@ -19,7 +19,12 @@ class UserController extends Controller
         $user = User::findUserByEmailAndPassword(request('email'), request('password'));
 
         if ($user instanceof User) {
-            return ApiResponse::success('Login Successful', ['user' => $user->toArray()]);
+            $userArray = $user->toArray();
+            $userArray['birth_date'] = date('Y-m-d', strtotime($user->birth_date));
+            $userArray['pregnancy_start_at'] = date('Y-m-d', strtotime($user->pregnancy_start_at));
+            $userArray['created_at'] = date('Y-m-d', strtotime($user->created_at));
+            $userArray['updated_at'] = date('Y-m-d', strtotime($user->updated_at));
+            return ApiResponse::success('Login Successful', ['user' => $userArray]);
         }
 
         return ApiResponse::error('Login Failed');
