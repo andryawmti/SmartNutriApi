@@ -88,6 +88,7 @@ class MenuController extends Controller
             'added_by' => $menu->admin->first_name . $menu->admin->last_name,
             'name' => $menu->name,
             'description' => $menu->description,
+            'photo' => $menu->photo,
             'created_at' => date('Y-m-d H:i:s', strtotime($menu->created_at)),
             'menu_items' => $menuItems,
             'total_nutrition' => [
