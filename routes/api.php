@@ -19,5 +19,6 @@ Route::prefix('user')->group(function () {
 });
 
 Route::prefix('article')->group(function () {
-
+    Route::get('/', 'Api\ArticleController@getAll');
+    Route::get('/{article}', 'Api\ArticleController@get');
 });
