@@ -28,13 +28,13 @@ class UserController extends Controller
     public function update(User $user)
     {
         try {
-            $user->first_name = request('first_name');
-            $user->last_name = request('last_name');
-            $user->email = request('email');
-            $user->birth_date = request('birth_date');
-            $user->address = request('address');
-            $user->pregnancy_start_at = request('pregnancy_start_at');
-            $user->height = request('height');
+            request('first_name') ? $user->first_name = request('first_name') : null;
+            request('last_name') ? $user->last_name = request('last_name') : null;
+            request('email') ? $user->email = request('email') : null;
+            request('birth_date') ? $user->birth_date = request('birth_date') : null;
+            request('address') ? $user->address = request('address') : null;
+            request('pregnancy_start_at') ? $user->pregnancy_start_at = request('pregnancy_start_at') : null;
+            request('height') ? $user->height = request('height') : null;
 
             $user->save();
 
