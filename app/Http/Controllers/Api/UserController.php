@@ -27,16 +27,6 @@ class UserController extends Controller
 
     public function update(User $user)
     {
-        request()->validate([
-            'first_name' => 'required',
-            'last_name' => 'required',
-            'email' => ['email', 'required'],
-            'birth_date' => 'required',
-            'address' => 'required',
-            'pregnancy_start_at' => 'required',
-            'height' => 'numeric',
-        ]);
-
         try {
             $user->first_name = request('first_name');
             $user->last_name = request('last_name');
