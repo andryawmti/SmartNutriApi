@@ -14,6 +14,8 @@ Route::prefix('consultation')->group(function () {
 
 Route::prefix('user')->group(function () {
     Route::post('/login', 'Api\UserController@login');
+    Route::post('/reset-password', 'Api\UserController@resetPassword');
+    Route::post('/change-password', 'Api\UserController@changePassword');
     Route::post('/{user}', 'Api\UserController@update');
     Route::post('/{user}/upload-photo', 'Api\UserController@uploadPhoto');
 });

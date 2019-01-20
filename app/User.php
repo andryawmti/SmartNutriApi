@@ -23,4 +23,9 @@ class User extends Model{
 
         return false;
     }
+
+    public static function findOneByEmail($email)
+    {
+        return User::where('email', '=', $email)->first();
+    }
 }
