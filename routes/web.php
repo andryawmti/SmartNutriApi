@@ -51,7 +51,3 @@ Route::post('article/upload-photo', 'ArticleController@uploadPhoto')->name('arti
 
 /** ConsultationController */
 Route::resource('consultation', 'ConsultationController');
-
-/** ResetPasswordController */
-Route::get('/user-password/reset/{token}', 'Auth\ResetPasswordController@showUserResetPasswordForm')->name('user-reset-form');
-Route::post('/user-password/reset', 'Auth\ResetPasswordController@userResetPassword')->name('user-reset-password');
