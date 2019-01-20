@@ -7,11 +7,9 @@ use App\Mail\ResetPassword;
 use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
@@ -76,27 +74,28 @@ class UserController extends Controller
     {
         $currentPassword = request('current_password');
         $newPassword = request('new_password');
-
         if (Hash::check($currentPassword, $user->password)) {
             $user->password = Hash::make($newPassword);
             $user->save();
-            return ApiResponse::success('Password successfully updated');
+            return ApiResponse::success('Password successfully updated', ['user' => $user->toArray()]);
         }
 
         return ApiResponse::error('Password update failed');
     }
 
-    public function resetPassword(Request $request)
+    public function resetPassword()
     {
         $email = request('email');
 
         $token = str_random(60);
-        $link = url('/password/reset') . '/' . $token;
+        $link = url('/user-password/reset') . '/' . $token;
 
         $user = User::findOneByEmail($email);
 
         if ($user instanceof  User) {
+
             $resetRequset = DB::table('password_resets')->where('email', '=', $email)->first();
+
             if (isset($resetRequset)) {
                 DB::table('password_resets')->where('email', '=', $email)->delete();
             }
@@ -106,7 +105,7 @@ class UserController extends Controller
                 'token' => $token,
             ]);
 
-            Mail::to($email)->send(new ResetPassword($link, $user));
+            Mail::to('andryavera@gmail.com')->send(new ResetPassword($link, $user));
 
             if (!Mail::failures()) {
                 $response = ApiResponse::success('Reset link request has ben sent, you will receive an email soon!');
