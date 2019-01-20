@@ -18,7 +18,7 @@ class CreateArticlesTable extends Migration
             $table->unsignedInteger('admin_id');
             $table->string('title', 150);
             $table->text('content');
-            $table->string('photo');
+            $table->string('photo')->nullable();
             $table->dateTime('created_at');
             $table->dateTime('updated_at')->nullable();
         });
