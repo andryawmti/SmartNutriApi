@@ -17,13 +17,13 @@ class ArticleSeeder extends Seeder
                 'admin_id' => 1,
                 'title' => 'Article One',
                 'content' => 'This is content of article one',
-                'photo' => 'angleadmin/img/user/08.jpg',
+                'photo' => null,
             ],
             [
                 'admin_id' => 1,
                 'title' => 'Article Two',
                 'content' => 'This is content of article two',
-                'photo' => 'angleadmin/img/user/08.jpg',
+                'photo' => null,
             ],
         ];
 
