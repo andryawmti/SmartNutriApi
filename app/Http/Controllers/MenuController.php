@@ -23,12 +23,14 @@ class MenuController extends Controller
     {
         request()->validate([
             'name' => 'required',
+            'description' => 'required',
             'menu_items' => 'required'
         ]);
 
         try {
             $menu = new Menu();
             $menu->name = request('name');
+            $menu->description = request('description');
             $menu->admin_id = auth()->user()->id;
             $menu->save();
 
@@ -63,11 +65,13 @@ class MenuController extends Controller
     {
         request()->validate([
             'name' => 'required',
+            'description' => 'required',
             'menu_items' => 'required'
         ]);
 
         try {
             $menu->name = request('name');
+            $menu->description = request('description');
             $menu->save();
 
             $menu_items = json_decode(request('menu_items'));

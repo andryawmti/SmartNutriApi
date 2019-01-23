@@ -46,6 +46,14 @@
                             </fieldset>
                             <fieldset>
                                 <div class="form-group row">
+                                    <label class="col-md-2 col-form-label">Description</label>
+                                    <div class="col-md-10">
+                                        <textarea class="form-control" name="description" required>{{ $menu->description }}</textarea>
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <fieldset>
+                                <div class="form-group row">
                                     <label class="col-md-2 col-form-label">Food Ingredient</label>
                                     <div class="col-md-10">
                                         <table class="table table-striped table-bordered">
@@ -61,7 +69,7 @@
                                             <tr v-for="(item, x) in menu_items" class="gradeX">
                                                 <td>@{{ x+1 }}</td>
                                                 <td>
-                                                    <a :href=" food_ingredient_url + '/' + item.food_ingredient_id" target="_blank">
+                                                    <a :href="food_ingredient_url + '/' + item.food_ingredient_id" target="_blank">
                                                         @{{ item.food_ingredient_name }}
                                                     </a>
                                                 </td>

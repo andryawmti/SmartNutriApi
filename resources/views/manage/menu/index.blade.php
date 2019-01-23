@@ -92,6 +92,14 @@
                                     </fieldset>
                                     <fieldset>
                                         <div class="form-group row">
+                                            <label class="col-md-2 col-form-label">Description</label>
+                                            <div class="col-md-10">
+                                                <textarea class="form-control" name="description" required>{{ old('description') }}</textarea>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                    <fieldset>
+                                        <div class="form-group row">
                                             <label class="col-md-2 col-form-label">Food Ingredient</label>
                                             <div class="col-md-10">
                                                 <table class="table table-striped table-bordered">
