@@ -61,6 +61,7 @@
                                             <tr>
                                                 <th>Id</th>
                                                 <th>Ingredient</th>
+                                                <th>Calorie</th>
                                                 <th>Quantity</th>
                                                 <th></th>
                                             </tr>
@@ -73,6 +74,7 @@
                                                         @{{ item.food_ingredient_name }}
                                                     </a>
                                                 </td>
+                                                <td>@{{ item.calorie }}</td>
                                                 <td>@{{ item.quantity }}</td>
                                                 <td><button type="button" @click="removeItem(x)" class="btn btn-xs btn-warning">Remove</button></td>
                                             </tr>
@@ -81,12 +83,19 @@
                                                 <td>
                                                     <p>@{{ item.food_ingredient_name }} <button type="button" @click="showHidePickFoodIngredient()" class="btn btn-xs btn-info"><em class="fa fa-pencil"></em></button></p>
                                                 </td>
+                                                <td>@{{ item.calorie }}</td>
                                                 <td>
                                                     <input type="text" class="form-control" v-model="item.quantity">
                                                 </td>
                                                 <td>
                                                     <button @click="addItem()" type="button" class="btn btn-xs btn-primary pull-right">Add Food Ingredient</button>
                                                 </td>
+                                            </tr>
+                                            <tr class="gradeX">
+                                                <td colspan="2">
+                                                    Total Calorie
+                                                </td>
+                                                <td colspan="3">@{{ total_calorie }}</td>
                                             </tr>
                                             </tbody>
                                         </table>
@@ -164,14 +173,17 @@
                 @foreach($food_ingredients as $ingredient)
                     <tr class="gradeX">
                         <td>{{ $ingredient->id }}</td>
+                        {% $cat = $ingredient->foodIngredientCategory %}
+                        {% $param['id'] = $ingredient->id %}
+                        {% $param['name'] = $ingredient->name %}
+                        {% $param['calorie'] = $cat->calorie %}
                         <td>
-                            <a href="javascript:void(0)" @click="pickFoodIngredient('{{ json_encode($ingredient) }}')">
+                            <a href="javascript:void(0)" @click="pickFoodIngredient('{{ json_encode($param) }}')">
                                 {{ $ingredient->foodIngredientCategory->name }}
                             </a>
                         </td>
                         <td>{{ $ingredient->name }}</td>
                         <td>{{ $ingredient->weight }}</td>
-                        {% $cat = $ingredient->foodIngredientCategory %}
                         <td>@if($cat->calorie) {{ $cat->calorie }} @else - @endif</td>
                         <td>@if($cat->carbohydrate) {{ $cat->carbohydrate }} @else - @endif</td>
                         <td>@if($cat->protein) {{ $cat->protein }} @else - @endif</td>

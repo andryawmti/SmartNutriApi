@@ -7,8 +7,10 @@
                 item: {
                     food_ingredient_id: '',
                     food_ingredient_name: '',
+                    calorie: 0,
                     quantity: 0,
                 },
+                total_calorie: 0,
                 show_food_ingredient_popup: false,
                 food_ingredient_url: '{!! url('food-ingredient') !!}',
             }
@@ -21,6 +23,7 @@
                 ingredient = JSON.parse(ingredient);
                 this.item.food_ingredient_id = ingredient.id;
                 this.item.food_ingredient_name = ingredient.name;
+                this.item.calorie = ingredient.calorie;
                 this.showHidePickFoodIngredient();
             },
             addItem() {
@@ -28,6 +31,7 @@
                     return false;
                 }
                 this.menu_items.push(_.cloneDeep(this.item));
+                this.calculateTotalCalorie();
                 this.resetItem();
             },
             removeItem(index) {
@@ -36,10 +40,19 @@
             resetItem() {
                 this.item.food_ingredient_id = '';
                 this.item.food_ingredient_name = '';
+                this.item.calorie = 0;
                 this.item.quantity = 0;
-            }
+            },
+            calculateTotalCalorie() {
+                let calorie = 0;
+                this.menu_items.forEach(function (item) {
+                    calorie += parseInt(item.calorie);
+                });
+                this.total_calorie = calorie;
+            },
         },
         created(){
+            this.calculateTotalCalorie();
         }
     });
 </script>
