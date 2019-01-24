@@ -47,6 +47,7 @@
                                     <th>Id</th>
                                     <th>Name</th>
                                     <th>Added By</th>
+                                    <th>Calorie</th>
                                     <th>Created At</th>
                                     <th>Action</th>
                                 </tr>
@@ -57,6 +58,19 @@
                                         <td>{{ $menu->id }}</td>
                                         <td>{{ $menu->name }}</td>
                                         <td>{{ $menu->admin->first_name }} {{ $menu->admin->last_name }}</td>
+                                        {% $menuItems = $menu->menuItems %}
+                                        {% $calorie = 0 %}
+                                        {% $carbohydrate = 0 %}
+                                        {% $protein = 0 %}
+                                        {% $fat = 0 %}
+                                        @foreach($menuItems as $item)
+                                            {% $category = $item->foodIngredient->foodIngredientCategory %}
+                                            {% $calorie += $category->calorie * $item->quantity %}
+                                            {% $carbohydrate += $category->carbohydrate * $item->quantity %}
+                                            {% $protein += $category->protein * $item->quantity %}
+                                            {% $fat += $category->fat * $item->quantity %}
+                                        @endforeach
+                                        <td>{{ $calorie }}</td>
                                         <td>{{ date('d-M-Y', strtotime($menu->created_at)) }}</td>
                                         <td>
                                             <div class="row">
