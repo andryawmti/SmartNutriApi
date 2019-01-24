@@ -54,6 +54,7 @@ class MenuController extends Controller
             $menu_items [] = [
                 'food_ingredient_id' => $item->food_ingredient_id,
                 'food_ingredient_name' => $item->foodIngredient->name,
+                'calorie' => $item->foodIngredient->foodIngredientCategory->calorie,
                 'quantity' => $item->quantity,
             ];
         }
