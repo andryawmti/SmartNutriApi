@@ -24,7 +24,7 @@ class Menu extends Model
         $caloriePerMenu = (int)$calorie / 3;
         $caloriePerMenu = ceil($caloriePerMenu);
 
-        $sql = "SELECT *, ABS(" . $caloriePerMenu . " - calorie) AS delta_calorie FROM menu_helper WHERE ABS(" . $caloriePerMenu . " - calorie) <= 20";
+        $sql = "SELECT *, ABS(" . $caloriePerMenu . " - calorie) AS delta_calorie FROM menu_helper WHERE ABS(" . $caloriePerMenu . " - calorie) <= 80";
         $orderBy = " ORDER BY delta_calorie ASC";
 
         $firstMenu = DB::select($sql . $orderBy);
