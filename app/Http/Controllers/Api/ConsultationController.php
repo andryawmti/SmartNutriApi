@@ -103,7 +103,7 @@ class ConsultationController extends Controller
             foreach ($menuSuggestion as $m) {
                 MenuSuggestion::create([
                     'consultation_id' => 3,
-                    'menu_id' => $m['id'],
+                    'menu_id' => $m->id,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s'),
                 ]);
