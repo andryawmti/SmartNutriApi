@@ -45,7 +45,7 @@
             calculateTotalCalorie() {
                 let calorie = 0;
                 this.menu_items.forEach(function (item) {
-                    calorie += parseInt(item.calorie);
+                    calorie += item.calorie * item.quantity;
                 });
                 this.total_calorie = calorie;
             },
