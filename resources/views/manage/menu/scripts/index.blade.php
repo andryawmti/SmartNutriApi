@@ -35,6 +35,7 @@
             },
             removeItem(index) {
                 this.menu_items.splice(index, 1);
+                this.calculateTotalCalorie();
             },
             resetItem() {
                 this.item.food_ingredient_id = '';
