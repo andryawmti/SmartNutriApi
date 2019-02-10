@@ -21,6 +21,10 @@ class CreateArticlesTable extends Migration
             $table->string('photo')->nullable();
             $table->dateTime('created_at');
             $table->dateTime('updated_at')->nullable();
+
+            $table->foreign('admin_id')
+                ->references('id')
+                ->on('admins');
         });
     }
 
