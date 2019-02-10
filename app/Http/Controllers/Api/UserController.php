@@ -52,7 +52,6 @@ class UserController extends Controller
         $user->height = '160';
         $user->created_at = date('Y-m-d');
 
-
         try {
             $user->save();
             return ApiResponse::success('Signed Up Successfully', ['user' => $user->toArray()]);
