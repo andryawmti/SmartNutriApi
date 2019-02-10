@@ -38,6 +38,28 @@ class UserController extends Controller
         return ApiResponse::error('Login Failed');
     }
 
+    public function signUp()
+    {
+        $user = new User();
+        $user->first_name = request('first_name');
+        $user->last_name = request('last_name');
+        $user->email = request('email');
+        $user->password = Hash::make(request('password'));
+        $user->birth_date = date('Y-m-d');
+        $user->address = 'Change to your address';
+        $user->pregnancy_start_at = date('Y-m-d');
+        $user->weight = '50';
+        $user->height = '160';
+        $user->created_at = date('Y-m-d');
+
+        try {
+            $user->save();
+            return ApiResponse::success('Signed Up Successfully', ['user' => $user->toArray()]);
+        } catch (\Exception $e) {
+            return ApiResponse::error($e->getMessage());
+        }
+    }
+
     public function update(User $user)
     {
         try {
