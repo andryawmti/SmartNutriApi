@@ -35,7 +35,7 @@ class UserController extends Controller
             return ApiResponse::success('Login Successful', ['user' => $userArray]);
         }
 
-        return ApiResponse::error('Login Failed');
+        return ApiResponse::error('Login Failed, Please check your email and password');
     }
 
     public function signUp()
