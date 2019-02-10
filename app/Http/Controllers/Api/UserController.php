@@ -45,6 +45,7 @@ class UserController extends Controller
         $user->last_name = request('last_name');
         $user->email = request('email');
         $user->password = Hash::make(request('password'));
+        $user->photo = NULL;
         $user->birth_date = date('Y-m-d');
         $user->address = 'Change to your address';
         $user->pregnancy_start_at = date('Y-m-d');
